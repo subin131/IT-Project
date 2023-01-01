@@ -13,10 +13,11 @@ const CreateSpaceView = () => {
   return (
     <Container>
       <Navbar />
+      <GoBack />
       <Card>
         <HorizontalStack justifyContent="space-between">
-          <CreateSpace />
-          <SortBySelect />
+          {/* <CreateSpace /> */}
+          {/* <SortBySelect /> */}
         </HorizontalStack>
       </Card>
     </Container>
