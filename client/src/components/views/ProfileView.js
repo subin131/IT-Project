@@ -53,9 +53,9 @@ const ProfileView = () => {
     setEditing(!editing);
   };
 
-  const handleMessage = () => {
-    navigate("/messenger", { state: { user: profile.user } });
-  };
+  // const handleMessage = () => {
+  //   navigate("/messenger", { state: { user: profile.user } });
+  // };
 
   useEffect(() => {
     fetchUser();
@@ -95,7 +95,6 @@ const ProfileView = () => {
   return (
     <Container>
       <Navbar />
-
       <GridLayout
         left={
           <>
@@ -104,10 +103,9 @@ const ProfileView = () => {
               editing={editing}
               handleSubmit={handleSubmit}
               handleEditing={handleEditing}
-              handleMessage={handleMessage}
               validate={validate}
             />
-            <Stack spacing={2}>
+            <Stack style={{ color: "#00d5fa" }} spacing={2}>
               {profile ? (
                 <>
                   <ProfileTabs tab={tab} setTab={setTab} />
@@ -128,7 +126,6 @@ const ProfileView = () => {
               editing={editing}
               handleSubmit={handleSubmit}
               handleEditing={handleEditing}
-              handleMessage={handleMessage}
               validate={validate}
             />
 
