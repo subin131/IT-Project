@@ -14,7 +14,7 @@ const CreateSpace = () => {
       }}
       variant="outlined"
       size="medium"
-      //   onClick={() => navigate("/posts/create")}
+      onClick={() => navigate("/spaces/create")}
       sx={{
         gap: "0.2rem",
         whiteSpace: "nowrap",
