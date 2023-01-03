@@ -1,0 +1,22 @@
+.card-space-header {
+  width: 100%;
+  margin-bottom: 10px !important;
+}
+.card-image {
+  display: flex;
+  justify-content: center;
+  max-height: 50px;
+  object-fit: cover;
+  border-radius: 15px;
+  width: 10%;
+  margin-right: 10px;
+}
+.card-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.card-header h3:hover {
+  color: #00d5fa;
+  cursor: pointer;
+}
