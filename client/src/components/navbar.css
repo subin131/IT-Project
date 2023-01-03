@@ -1,0 +1,13 @@
+.home-icon {
+  color: black;
+}
+.home-icon:hover {
+  color: #00d5fa;
+}
+.community-icon {
+  color: black;
+  margin-top: 8px;
+}
+.community-icon:hover {
+  color: #00d5fa;
+}
