@@ -1,0 +1,7 @@
+.post-header {
+  color: black;
+  text-decoration: none;
+}
+.post-header:hover {
+  color: #00d5fa;
+}
