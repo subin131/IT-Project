@@ -7,6 +7,8 @@ import {
   Typography,
   Button,
 } from "@mui/material";
+import { GiDiscussion } from "react-icons/gi";
+
 import PeopleAltOutlined from "@material-ui/icons/PeopleAltOutlined";
 import { IoMdNotifications } from "react-icons/io";
 import { Box } from "@mui/system";
@@ -126,11 +128,6 @@ const Navbar = () => {
             />
           </Link>
 
-          {/* <IoMdNotifications
-            style={{ color: "black" }}
-            width={30}
-            height={50}
-          /> */}
           {user ? (
             <>
               <IconButton component={Link} to={"/users/" + username}>
