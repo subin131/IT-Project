@@ -18,19 +18,14 @@ import ContentDetails from "./ContentDetails";
 import LikeBox from "./LikeBox";
 import PostContentBox from "./PostContentBox";
 import HorizontalStack from "./util/HorizontalStack";
-
 import ContentUpdateEditor from "./ContentUpdateEditor";
 import Markdown from "./Markdown";
-
 import "./postCard.css";
 import { MdCancel } from "react-icons/md";
 import { BiTrash } from "react-icons/bi";
-// import { BsReplyFill } from "react-icons/bs";
-
 const PostCard = (props) => {
   const { preview, removePost } = props;
   let postData = props.post;
-  // console.log("post data", postData.picturePath);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const user = isLoggedIn();
@@ -171,7 +166,15 @@ const PostCard = (props) => {
                   className="content"
                 >
                   <Markdown content={post.content} />
-                  <div>{/* <img src={post.picturePath} alt="" /> */}</div>
+                  {post.picturePath && (
+                    <div>
+                      <img
+                        className="image-section"
+                        src={`${post.picturePath}`}
+                        alt="post"
+                      />{" "}
+                    </div>
+                  )}
                 </Box>
               ))}
 
