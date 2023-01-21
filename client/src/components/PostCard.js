@@ -104,9 +104,9 @@ const PostCard = (props) => {
             }}
           >
             <LikeBox
-              likeCount={likeCount}
               liked={post.liked}
-              onLike={handleLike}
+              likeCount={likeCount}
+              handleLike={handleLike}
             />
           </Stack>
           <PostContentBox clickable={preview} post={post} editing={editing}>
