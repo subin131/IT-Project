@@ -8,17 +8,7 @@ import {
   Typography,
   // Divider,
 } from "@mui/material";
-// import FlexBetween from "./FlexBetween";
-// import Dropzone from "react-dropzone";
-// import {
-//   EditOutlined,
-//   DeleteOutlined,
-//   AttachFileOutlined,
-//   GifBoxOutlined,
-//   ImageOutlined,
-//   MicOutlined,
-//   MoreHorizOutlined,
-// } from "@mui/icons-material";
+
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -33,34 +23,19 @@ const PostEditor = () => {
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState("");
   const [imageURL, setImageURL] = useState("");
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
 
-  const [formData, setFormData] = useState("");
+  const [formData, setFormData] = useState({
+    title: "",
+    content: "",
+    picturePath: "",
+  });
 
-  //image upload
-  useEffect(() => {
-    if (image) {
-      const imageUrl = URL.createObjectURL(image);
-      console.log("image url", imageUrl);
-      setImageURL(imageUrl);
-    }
-  }, [image]);
-
-  console.log("image parent url", imageURL);
   const [serverError, setServerError] = useState("");
   const [errors, setErrors] = useState({});
   const user = isLoggedIn();
 
   const handleChange = (e) => {
-    if (e.target.name === "picturePath") {
-      setImage(e.target.files[0]);
-    }
-    setImage(imageURL);
-    setTitle(e.target.value);
-    setContent(e.target.value);
-    setFormData({ ...formData, title, content, picturePath: image });
-
+    setFormData({ ...formData, [e.target.name]: e.target.value });
     const errors = validate();
     setErrors(errors);
   };
@@ -120,73 +95,7 @@ const PostEditor = () => {
             helperText={errors.content}
             required
           />
-          <TextField type="file" name="picturePath" onChange={handleChange} />
-
-          {/* Image Upload start */}
-          {/* {isImage && (
-            <Box
-              border={`1px solid black`}
-              borderRadius="5px"
-              mt="1rem"
-              p="1rem"
-              name="picturePath"
-              onChange={handleChange}
-            >
-              <Dropzone
-                onDrop={(acceptedFiles) => setImage(acceptedFiles[0])}
-                multiple={false}
-                accept="image/*"
-              >
-                {({ getRootProps, getInputProps }) => (
-                  <FlexBetween>
-                    <Box
-                      {...getRootProps()}
-                      border={`2px dashed black`}
-                      p="1rem"
-                      width="100%"
-                      sx={{ "&:hover": { cursor: "pointer" } }}
-                    >
-                      <input {...getInputProps()} />
-                      {!image ? (
-                        <p>Add Image Here</p>
-                      ) : (
-                        <FlexBetween>
-                          <Typography>{image.name}</Typography>
-                          <EditOutlined />
-                        </FlexBetween>
-                      )}
-                    </Box>
-                    {image && (
-                      <IconButton
-                        onClick={() => setImage(null)}
-                        sx={{ width: "15%" }}
-                      >
-                        <DeleteOutlined />
-                      </IconButton>
-                    )}
-                  </FlexBetween>
-                )}
-              </Dropzone>
-            </Box>
-          )}
-
-          <FlexBetween gap="0.25rem" onClick={() => setIsImage(!isImage)}>
-            <Typography
-              style={{ display: "flex" }}
-              sx={{
-                "&:hover": {
-                  cursor: "pointer",
-                  color: "black",
-                },
-              }}
-              name="picturePath"
-              onChange={handleChange}
-            >
-              <ImageOutlined sx={{ color: "black" }} />
-              Image
-            </Typography>
-          </FlexBetween> */}
-          {/* Imgage Upload end  */}
+          {/* <TextField type="file" name="picturePath" onChange={handleChange} /> */}
 
           <ErrorAlert error={serverError} />
           <Button
