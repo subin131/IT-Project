@@ -42,14 +42,11 @@ PostSchema.pre("save", function (next) {
   if (this.title.length > 0) {
     this.title = filter.clean(this.title);
   }
-
   if (this.content.length > 0) {
     this.content = filter.clean(this.content);
   }
-
   next();
 });
-
 PostSchema.pre("remove", async function (next) {
   console.log(this._id);
   await PostLike.deleteMany({ postId: this._id });
