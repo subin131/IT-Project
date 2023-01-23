@@ -8,7 +8,7 @@ const cooldown = new Set();
 
 const createPost = async (req, res) => {
   try {
-    const { title, content, userId, picturePath } = req.body;
+    const { title, content, userId } = req.body;
 
     if (!(title && content)) {
       throw new Error("All input required");
@@ -29,7 +29,6 @@ const createPost = async (req, res) => {
       title,
       content,
       poster: userId,
-      picturePath,
     });
 
     res.json(post);
