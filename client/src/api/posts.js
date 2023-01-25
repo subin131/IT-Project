@@ -55,7 +55,7 @@ const createPost = async (post, user) => {
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
         "x-access-token": user.token,
       },
       body: JSON.stringify(post),
@@ -196,6 +196,32 @@ const unlikePost = async (postId, user) => {
   }
 };
 
+const addPost = async (post, user) => {
+  try {
+    var myHeaders = new Headers();
+    // myHeaders.append("Content-Type", "multipart/form-data");
+    // myHeaders.append("Accept", "application/json");
+    myHeaders.append("x-access-token", `${user.token}`);
+
+    var formdata = new FormData();
+    formdata.append("image", post.image);
+    formdata.append("title", post.title);
+    formdata.append("content", post.content);
+
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: formdata,
+      redirect: "follow",
+    };
+
+    const res = await fetch(BASE_URL + "api/posts", requestOptions);
+    return await res.json();
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export {
   getPost,
   createPost,
@@ -210,4 +236,5 @@ export {
   updateComment,
   likePost,
   unlikePost,
+  addPost,
 };
