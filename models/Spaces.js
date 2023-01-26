@@ -2,6 +2,11 @@ const mongoose = require("mongoose");
 const filter = require("../util/filter");
 const SpaceSchema = new mongoose.Schema(
   {
+    spacer: {
+      type: mongoose.Types.ObjectId,
+      ref: "user",
+      required: true,
+    },
     name: {
       type: String,
       required: true,
