@@ -23,7 +23,6 @@ const PostEditor = () => {
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState("");
   const [imageURL, setImageURL] = useState("");
-
   const [formData, setFormData] = useState({
     title: "",
     content: "",
@@ -34,8 +33,18 @@ const PostEditor = () => {
   const [errors, setErrors] = useState({});
   const user = isLoggedIn();
 
+  const imageHandleChange = (e) => {
+    setImage(e.target.files[0]);
+    console.log("image", image.name);
+  };
+
+  // console.log("image form", imageURL);
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+      picturePath: image,
+    });
     const errors = validate();
     setErrors(errors);
   };
@@ -95,7 +104,11 @@ const PostEditor = () => {
             helperText={errors.content}
             required
           />
-          {/* <TextField type="file" name="picturePath" onChange={handleChange} /> */}
+          <TextField
+            type="file"
+            name="picturePath"
+            onChange={imageHandleChange}
+          />
 
           <ErrorAlert error={serverError} />
           <Button
