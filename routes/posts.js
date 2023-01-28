@@ -6,9 +6,11 @@ const { verifyToken, optionallyVerifyToken } = require("../middleware/auth");
 //importing the uploader middleware
 const uploader = require("../middleware/uploader");
 router.get("/", optionallyVerifyToken, postControllers.getPosts);
+
 //post request to create a post
 router.post(
   "/",
+
   uploader.single("image"),
   verifyToken,
   postControllers.createPost
