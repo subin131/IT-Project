@@ -30,6 +30,12 @@ import { useEffect } from "react";
 import { BASE_URL } from "./config";
 import { io } from "socket.io-client";
 import Community from "./components/Community";
+import SpaceEditor from "./components/SpaceEditor";
+import SpaceView from "./components/views/SpaceView";
+
+import ExploreViewSpace from "./components/views/ExploreViewSpaces";
+import SpacePostEditor from "./components/SpacePostEditor";
+import SpacePostView from "./components/views/SpacePostView";
 
 function App() {
   initiateSocketConnection();
@@ -42,6 +48,8 @@ function App() {
           <Route path="/" element={<ExploreView />} />
           <Route path="/community" element={<Community />} />
           <Route path="/posts/:id" element={<PostView />} />
+          <Route path="/spaces/:id" element={<SpaceView />} />
+          <Route path="/spaces/posts/create/:id" element={<SpacePostView />} />
           <Route
             path="/posts/create"
             element={
@@ -50,7 +58,22 @@ function App() {
               </PrivateRoute>
             }
           />
-
+          <Route
+            path="/spaces/create"
+            element={
+              <PrivateRoute>
+                <SpaceEditor />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/spaces"
+            element={
+              <PrivateRoute>
+                <ExploreViewSpace />
+              </PrivateRoute>
+            }
+          />
           <Route path="/search" element={<SearchView />} />
           <Route path="/users/:id" element={<ProfileView />} />
           <Route path="/login" element={<LoginView />} />

@@ -12,7 +12,7 @@ import {
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createPost } from "../api/posts";
+import { createPost, addPost } from "../api/posts";
 import ErrorAlert from "./ErrorAlert";
 import { isLoggedIn } from "../helpers/authHelper";
 import HorizontalStack from "./util/HorizontalStack";
@@ -26,7 +26,6 @@ const PostEditor = () => {
   const [formData, setFormData] = useState({
     title: "",
     content: "",
-    picturePath: "",
   });
 
   const [serverError, setServerError] = useState("");
@@ -35,7 +34,7 @@ const PostEditor = () => {
 
   const imageHandleChange = (e) => {
     setImage(e.target.files[0]);
-    console.log("image", image.name);
+    console.log(e.target.files[0]);
   };
 
   // console.log("image form", imageURL);
@@ -43,7 +42,6 @@ const PostEditor = () => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
-      picturePath: image,
     });
     const errors = validate();
     setErrors(errors);
@@ -51,8 +49,10 @@ const PostEditor = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("image", image);
     setLoading(true);
-    const data = await createPost(formData, isLoggedIn());
+    const postObj = { ...formData, image };
+    const data = await addPost(postObj, isLoggedIn());
     setLoading(false);
     if (data && data.error) {
       setServerError(data.error);
@@ -60,7 +60,7 @@ const PostEditor = () => {
       navigate("/posts/" + data._id);
     }
     setImage(null);
-    console.log(formData);
+    console.log("formdata", postObj);
   };
 
   const validate = () => {
@@ -104,11 +104,7 @@ const PostEditor = () => {
             helperText={errors.content}
             required
           />
-          <TextField
-            type="file"
-            name="picturePath"
-            onChange={imageHandleChange}
-          />
+          <TextField type="file" name="image" onChange={imageHandleChange} />
 
           <ErrorAlert error={serverError} />
           <Button

@@ -61,7 +61,8 @@ const Profile = (props) => {
           {currentUser && user._id === currentUser.userId && (
             <Box>
               <Button
-                startIcon={<AiFillEdit color={iconColor} />}
+                style={{ color: "#00d5fa" }}
+                startIcon={<AiFillEdit style={{ color: "#00d5fa" }} />}
                 onClick={props.handleEditing}
               >
                 {props.editing ? <>Cancel</> : <>Edit bio</>}

@@ -8,7 +8,7 @@ import Sidebar from "../Sidebar";
 import { Button, Card, Link, Stack, Typography } from "@mui/material";
 import CreateSpace from "../CreateSpace";
 import HorizontalStack from "../util/HorizontalStack";
-import SortBySelect from "../SortBySelect";
+
 const CreateSpaceView = () => {
   return (
     <Container>
