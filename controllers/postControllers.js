@@ -8,7 +8,10 @@ const cooldown = new Set();
 
 const createPost = async (req, res) => {
   try {
-    const { title, content, userId, picturePath } = req.body;
+    const url = req.protocol + "://" + req.get("host");
+    console.log(req.user);
+    console.log("req.body", req.body);
+    const { title, content, userId, image } = req.body;
 
     if (!(title && content)) {
       throw new Error("All input required");
@@ -29,7 +32,7 @@ const createPost = async (req, res) => {
       title,
       content,
       poster: userId,
-      picturePath,
+      picturePath: url + "/uploads/" + req.file.filename,
     });
 
     res.json(post);
