@@ -2,6 +2,7 @@ import { Box, Button, Stack, TextField } from "@mui/material";
 import React, { useState } from "react";
 
 const ContentUpdateEditor = (props) => {
+  console.log("content update", props);
   const [content, setContent] = useState(props.originalContent);
   const [error, setError] = useState("");
 
