@@ -1,14 +1,7 @@
-import {
-  Button,
-  Card,
-  IconButton,
-  Stack,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { Card, IconButton, Stack, Typography, useTheme } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
-import { AiFillCheckCircle, AiFillEdit, AiFillMessage } from "react-icons/ai";
+import { AiFillCheckCircle } from "react-icons/ai";
 import { BiCommentDetail } from "react-icons/bi";
 import { FiEdit } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
@@ -31,7 +24,7 @@ const PostCard = (props) => {
   const user = isLoggedIn();
   const isAuthor = user && user.username === postData.poster.username;
   const theme = useTheme();
-  const iconColor = theme.palette.primary.main;
+
   const [editing, setEditing] = useState(false);
   const [confirm, setConfirm] = useState(false);
   const [post, setPost] = useState(postData);
@@ -101,7 +94,7 @@ const PostCard = (props) => {
             <LikeBox
               liked={post.liked}
               likeCount={likeCount}
-              handleLike={handleLike}
+              onLike={handleLike}
             />
           </Stack>
           <PostContentBox clickable={preview} post={post} editing={editing}>
