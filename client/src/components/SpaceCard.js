@@ -1,32 +1,22 @@
-import {
-  Button,
-  Card,
-  IconButton,
-  Stack,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { Card, IconButton, Stack, Typography, useTheme } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
 import { AiFillCheckCircle, AiFillEdit, AiFillMessage } from "react-icons/ai";
-import { BiCommentDetail } from "react-icons/bi";
 import { FiEdit } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { deleteSpace, updateSpace } from "../api/spaces";
 import { isLoggedIn } from "../helpers/authHelper";
-import ContentDetails from "./ContentDetails";
-import LikeBox from "./LikeBox";
+
 import SpaceContentBox from "./SpaceContentBox";
 import HorizontalStack from "./util/HorizontalStack";
 
-import ContentUpdateEditor from "./ContentUpdateEditor";
+import SpaceUpdateEditor from "./SpaceUpdateEditor";
 import Markdown from "./Markdown";
 
 import "./postCard.css";
 import { MdCancel } from "react-icons/md";
 import { BiTrash } from "react-icons/bi";
 import SpaceDetails from "./SpaceDetails";
-import SpaceUpdateEditor from "./SpaceUpdateEditor";
 
 const SpaceCard = (props) => {
   const { preview, removeSpace } = props;
@@ -66,15 +56,14 @@ const SpaceCard = (props) => {
 
   const handleEditSpace = async (e) => {
     e.stopPropagation();
-
     setEditing(!editing);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const name = e.target.content.value;
-    const description = e.target.content.value;
+    const name = e.target.name.value;
+    const description = e.target.description.value;
     await updateSpace(space._id, isLoggedIn(), { name, description });
     setSpace({ ...space, name, description, edited: true });
     setEditing(false);
@@ -147,7 +136,8 @@ const SpaceCard = (props) => {
               (editing ? (
                 <SpaceUpdateEditor
                   handleSubmit={handleSubmit}
-                  originalContent={space.content}
+                  originalName={space.name}
+                  originalDescription={space.description}
                 />
               ) : (
                 <Box
