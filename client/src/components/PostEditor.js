@@ -22,7 +22,7 @@ const PostEditor = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState("");
-  const [imageURL, setImageURL] = useState("");
+
   const [formData, setFormData] = useState({
     title: "",
     content: "",
@@ -33,11 +33,9 @@ const PostEditor = () => {
   const user = isLoggedIn();
 
   const imageHandleChange = (e) => {
-    setImage(e.target.files[0]);
-    console.log(e.target.files[0]);
+    setImage(e.target.files[0] || "");
   };
 
-  // console.log("image form", imageURL);
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -49,9 +47,8 @@ const PostEditor = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("image", image);
     setLoading(true);
-    const postObj = { ...formData, image };
+    const postObj = { ...formData, image: image || "" };
     const data = await addPost(postObj, isLoggedIn());
     setLoading(false);
     if (data && data.error) {
