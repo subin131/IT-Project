@@ -8,8 +8,7 @@ import { getSpaces } from "../api/spaces";
 import { isLoggedIn } from "../helpers/authHelper";
 import CreateSpace from "./CreateSpace";
 import Loading from "./Loading";
-// import PostCard from "./PostCard";
-import SortBySelect from "./SortBySelect";
+
 import SpaceCard from "./SpaceCard";
 import HorizontalStack from "./util/HorizontalStack";
 
@@ -18,15 +17,11 @@ const SpaceBrowser = (props) => {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(0);
   const [end, setEnd] = useState(false);
-  // const [sortBy, setSortBy] = useState("-createdAt");
   const [count, setCount] = useState(0);
   const user = isLoggedIn();
 
   const [search] = useSearchParams();
   const [effect, setEffect] = useState(false);
-
-  // const searchExists =
-  //   search && search.get("search") && search.get("search").length > 0;
 
   const fetchSpaces = async () => {
     setLoading(true);
@@ -75,9 +70,9 @@ const SpaceBrowser = (props) => {
   //   setSortBy(newSortBy);
   // };
 
-  //   const removePost = (removedPost) => {
-  //     setPosts(posts.filter((post) => post._id !== removedPost._id));
-  //   };
+  const removeSpace = (removedSpace) => {
+    setSpaces(spaces.filter((space) => space._id !== removedSpace._id));
+  };
 
   const handleBackToTop = () => {
     window.scrollTo({
@@ -115,7 +110,7 @@ const SpaceBrowser = (props) => {
             preview="primary"
             key={space._id}
             space={space}
-            // removePost={removePost}
+            removeSpace={removeSpace}
           />
         ))}
 
