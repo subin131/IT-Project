@@ -1,18 +1,14 @@
 const mongoose = require("mongoose");
-const Post = require("../models/Post");
 const SpacePost = require("../models/SpacePost");
 const User = require("../models/User");
-const Comment = require("../models/Comment");
-const PostLike = require("../models/PostLike");
+const SpacePostComment = require("../models/SpacePostComment");
 const paginate = require("../util/paginate");
-const { populate } = require("../models/PostLike");
 const SpacePostLike = require("../models/SpacePostLike");
-
 const cooldown = new Set();
 
 const createSpacePost = async (req, res) => {
   try {
-    const { title, content, userId, picturePath } = req.body;
+    const { title, content, userId, image } = req.body;
 
     if (!(title && content)) {
       throw new Error("All input required");
@@ -33,7 +29,7 @@ const createSpacePost = async (req, res) => {
       title,
       content,
       spacePoster: userId,
-      picturePath,
+      picturePath: url + "/uploads1/" + req.file.filename,
     });
 
     res.json(spacePost);
@@ -109,7 +105,7 @@ const deleteSpacePost = async (req, res) => {
 
     await spacePost.remove();
 
-    await Comment.deleteMany({ post: spacePostId });
+    await SpacePostComment.deleteMany({ post: spacePostId });
 
     return res.json({ message: "Post deleted successfully" });
   } catch (err) {
@@ -168,7 +164,7 @@ const setLiked = async (spacePost, userId) => {
   });
 };
 
-const getUserLikedPosts = async (req, res) => {
+const getUserLikedSpacePosts = async (req, res) => {
   try {
     const likerId = req.params.id;
     const { userId } = req.body;
@@ -263,5 +259,5 @@ module.exports = {
   deleteSpacePost,
   likeSpacePost,
   unlikeSpacePost,
-  getUserLikedPosts,
+  getUserLikedSpacePosts,
 };
