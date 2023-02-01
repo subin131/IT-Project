@@ -1,18 +1,9 @@
-import {
-  Button,
-  Card,
-  // Link,
-  Stack,
-  TextField,
-  // IconButton,
-  Typography,
-  // Divider,
-} from "@mui/material";
+import { Button, Card, Stack, TextField, Typography } from "@mui/material";
 
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createPost } from "../api/posts";
+import { createSpacePost } from "../api/spacePost";
 import ErrorAlert from "./ErrorAlert";
 import { isLoggedIn } from "../helpers/authHelper";
 import HorizontalStack from "./util/HorizontalStack";
@@ -22,11 +13,9 @@ const SpacePostEditor = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState("");
-  const [imageURL, setImageURL] = useState("");
   const [formData, setFormData] = useState({
     title: "",
     content: "",
-    picturePath: "",
   });
 
   const [serverError, setServerError] = useState("");
@@ -35,15 +24,12 @@ const SpacePostEditor = () => {
 
   const imageHandleChange = (e) => {
     setImage(e.target.files[0]);
-    console.log("image", image.name);
   };
 
-  // console.log("image form", imageURL);
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
-      picturePath: image,
     });
     const errors = validate();
     setErrors(errors);
@@ -52,15 +38,19 @@ const SpacePostEditor = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const data = await createPost(formData, isLoggedIn());
+    const postObj = { ...formData, image: image || "" };
+    const data = await createSpacePost(postObj, isLoggedIn());
+    console("Space editor", data);
     setLoading(false);
     if (data && data.error) {
       setServerError(data.error);
     } else {
-      navigate("/posts/" + data._id);
+      console.log("data", data);
+      navigate("/spaces/" + data._id);
     }
     setImage(null);
     console.log(formData);
+    console.log("formdata", postObj);
   };
 
   const validate = () => {
@@ -104,11 +94,7 @@ const SpacePostEditor = () => {
             helperText={errors.content}
             required
           />
-          <TextField
-            type="file"
-            name="picturePath"
-            onChange={imageHandleChange}
-          />
+          <TextField type="file" name="image" onChange={imageHandleChange} />
 
           <ErrorAlert error={serverError} />
           <Button
