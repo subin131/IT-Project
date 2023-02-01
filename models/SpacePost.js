@@ -53,4 +53,4 @@ SpacePostSchema.pre("remove", async function (next) {
   next();
 });
 
-module.exports = mongoose.model("post", SpacePostSchema);
+module.exports = mongoose.model("spacepost", SpacePostSchema);
