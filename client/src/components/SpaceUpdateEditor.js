@@ -2,15 +2,10 @@ import { Box, Button, Stack, TextField } from "@mui/material";
 import React, { useState } from "react";
 
 const SpaceUpdateEditor = (props) => {
-  //   const [content, setContent] = useState(props.originalContent);
+  console.log("update", props);
   const [name, setName] = useState(props.originalName);
   const [description, setDescription] = useState(props.originalDescription);
   const [error, setError] = useState("");
-
-  const handleChange = (e) => {
-    setName(e.target.value);
-    setDescription(e.target.value);
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -38,7 +33,7 @@ const SpaceUpdateEditor = (props) => {
           margin="normal"
           name="name"
           sx={{ backgroundColor: "white" }}
-          onChange={handleChange}
+          onChange={(e) => setName(e.target.value)}
           error={error.length !== 0}
           helperText={error}
           multiline
@@ -49,7 +44,7 @@ const SpaceUpdateEditor = (props) => {
           margin="normal"
           name="description"
           sx={{ backgroundColor: "white" }}
-          onChange={handleChange}
+          onChange={(e) => setDescription(e.target.value)}
           error={error.length !== 0}
           helperText={error}
           multiline
