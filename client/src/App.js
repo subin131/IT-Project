@@ -36,6 +36,7 @@ import SpaceView from "./components/views/SpaceView";
 import ExploreViewSpace from "./components/views/ExploreViewSpaces";
 import SpacePostEditor from "./components/SpacePostEditor";
 import SpacePostView from "./components/views/SpacePostView";
+import CreatePollView from "./components/views/CreatePollView";
 
 function App() {
   initiateSocketConnection();
@@ -55,6 +56,14 @@ function App() {
             element={
               <PrivateRoute>
                 <CreatePostView />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/poll/create"
+            element={
+              <PrivateRoute>
+                <CreatePollView />
               </PrivateRoute>
             }
           />
