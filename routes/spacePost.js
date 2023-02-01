@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-
 const spacePostControllers = require("../controllers/spacePostControllers");
 const { verifyToken, optionallyVerifyToken } = require("../middleware/auth");
 
@@ -17,3 +16,4 @@ router.get(
   optionallyVerifyToken,
   spacePostControllers.getUserLikedSpacePosts
 );
+module.exports = router;
