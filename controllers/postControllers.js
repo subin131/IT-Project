@@ -9,8 +9,6 @@ const cooldown = new Set();
 const createPost = async (req, res) => {
   try {
     const url = req.protocol + "://" + req.get("host");
-    console.log(req.user);
-    console.log("req.body", req.body);
     const { title, content, userId, image } = req.body;
 
     if (!(title && content)) {
@@ -32,7 +30,7 @@ const createPost = async (req, res) => {
       title,
       content,
       poster: userId,
-      picturePath: url + "/uploads/" + req.file.filename,
+      picturePath: url + "/uploads/" + req.file.filename || "",
     });
 
     res.json(post);
