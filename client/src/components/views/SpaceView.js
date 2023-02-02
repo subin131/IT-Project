@@ -1,27 +1,24 @@
 import { Container, Stack } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import GoBack from "../GoBack";
 import GridLayout from "../GridLayout";
 import Loading from "../Loading";
 import Navbar from "../Navbar";
 import SpaceCard from "../SpaceCard";
-import Sidebar from "../Sidebar";
 import { useParams } from "react-router-dom";
 import { getSpace } from "../../api/spaces";
-import Comments from "../Comments";
 import ErrorAlert from "../ErrorAlert";
 import { isLoggedIn } from "../../helpers/authHelper";
 import GoBackCommunity from "../GoBackCommunity";
-import CreatePost from "../CreatePost";
 import CreateSpacePost from "../CreateSpacePost";
-import { GrDashboard } from "react-icons/gr";
-import DashboardSpace from "../DashboardSpace";
 import SpaceLabel from "../SpaceLabel";
+import { getSpacePosts } from "../../api/spacePost";
+import SpacePostBrowse from "../SpacePostBrowse";
 
 const SpaceView = () => {
   const params = useParams();
 
   const [space, setSpace] = useState(null);
+  const [spacePost, setSpacePost] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const user = isLoggedIn();
@@ -37,8 +34,21 @@ const SpaceView = () => {
     setLoading(false);
   };
 
+  //fetching space posts
+  const fetchSpacePost = async () => {
+    setLoading(true);
+    const data = await getSpacePosts(params.id, user && user.token);
+    if (data.error) {
+      setError(data.error);
+    } else {
+      setSpacePost(data);
+    }
+    setLoading(false);
+  };
+
   useEffect(() => {
     fetchSpace();
+    fetchSpacePost();
   }, [params.id]);
 
   return (
@@ -53,11 +63,12 @@ const SpaceView = () => {
           loading ? (
             <Loading />
           ) : space ? (
-            <Stack spacing={2}>
-              <SpaceCard space={space} key={space._id} />
-
-              <DashboardSpace />
-            </Stack>
+            <div>
+              <Stack spacing={2}>
+                <SpaceCard space={space} key={space._id} />
+              </Stack>
+              <SpacePostBrowse spacePost={spacePost} />
+            </div>
           ) : (
             error && <ErrorAlert error={error} />
           )
