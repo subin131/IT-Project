@@ -138,10 +138,19 @@ const SpaceBrowser = (props) => {
           spaces &&
           spaces.length > 0 && (
             <Stack pt={2} pb={6} alignItems="center" spacing={2}>
-              <Button onClick={fetchSpaces} variant="contained">
+              <Button
+                style={{ backgroundColor: "#00d5fa" }}
+                onClick={fetchSpaces}
+                variant="contained"
+              >
                 Load more
               </Button>
-              <Button variant="text" size="small" onClick={handleBackToTop}>
+              <Button
+                style={{ color: "#00d5fa" }}
+                variant="text"
+                size="small"
+                onClick={handleBackToTop}
+              >
                 Back to top
               </Button>
             </Stack>

@@ -21,6 +21,7 @@ import SpaceDetails from "./SpaceDetails";
 const SpaceCard = (props) => {
   const { preview, removeSpace } = props;
   let spaceData = props.space;
+
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const user = isLoggedIn();

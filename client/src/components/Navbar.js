@@ -66,8 +66,9 @@ const Navbar = () => {
   };
 
   return (
-    <Stack mb={2}>
+    <Stack mb={2} margin={1}>
       <Stack
+        width="100%"
         direction="row"
         alignItems="center"
         justifyContent="space-between"
@@ -78,7 +79,10 @@ const Navbar = () => {
         spacing={!mobile ? 2 : 0}
       >
         <HorizontalStack>
+          {/* <GiDiscussion /> */}
           <Typography
+            paddingLeft="10px"
+            margin="15px 5px"
             sx={{ display: mobile ? "none" : "block" }}
             variant={navbarWidth ? "h6" : "h4"}
             mr={1}

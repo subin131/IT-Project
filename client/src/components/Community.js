@@ -3,7 +3,6 @@ import { Container } from "@mui/material";
 import Navbar from "./Navbar";
 import CreateSpace from "./CreateSpace";
 import { Button, Card, Link, Stack, Typography } from "@mui/material";
-import SortBySelect from "./SortBySelect";
 import HorizontalStack from "./util/HorizontalStack";
 import SortByRole from "./SortByRole";
 import DiscoverSpace from "./DiscoverSpace";

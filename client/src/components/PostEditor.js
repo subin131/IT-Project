@@ -12,7 +12,7 @@ import {
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createPost, addPost } from "../api/posts";
+import { addPost } from "../api/posts";
 import ErrorAlert from "./ErrorAlert";
 import { isLoggedIn } from "../helpers/authHelper";
 import HorizontalStack from "./util/HorizontalStack";
@@ -50,6 +50,7 @@ const PostEditor = () => {
     setLoading(true);
     const postObj = { ...formData, image: image || "" };
     const data = await addPost(postObj, isLoggedIn());
+    console.log("data", data);
     setLoading(false);
     if (data && data.error) {
       setServerError(data.error);

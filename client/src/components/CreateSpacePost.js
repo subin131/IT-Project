@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 const CreateSpacePost = () => {
   const navigate = useNavigate();
   const space = useParams();
-  console.log("space", space);
+
   return (
     <Button
       style={{

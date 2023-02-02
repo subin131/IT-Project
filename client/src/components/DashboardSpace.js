@@ -11,13 +11,13 @@ const DashboardSpace = (props) => {
         <div className="text-icon">
           <h4 style={{ color: "#00d5fa" }}>Posts</h4>
           <BsFillFilePostFill fontSize={"20px"} />
-          <h4>0</h4>
+          <h4>{props.count}</h4>
         </div>
 
         <div className="text-icon">
           <h4 style={{ color: "#00d5fa" }}>Likes</h4>
           <AiOutlineLike fontSize={"20px"} />
-          <h4>0</h4>
+          <h4></h4>
         </div>
         <div className="text-icon">
           <h4 style={{ color: "#00d5fa" }}>Comments</h4>

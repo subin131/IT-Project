@@ -38,19 +38,20 @@ const SpacePostEditor = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const postObj = { ...formData, image: image || "" };
-    const data = await createSpacePost(postObj, isLoggedIn());
-    console("Space editor", data);
+    const spacePostObj = { ...formData, image: image };
+    console.log("spacePostObj", spacePostObj);
+    const spaceData = await createSpacePost(spacePostObj, isLoggedIn());
+    console.log("Space editor", spaceData);
     setLoading(false);
-    if (data && data.error) {
-      setServerError(data.error);
+    if (spaceData && spaceData.error) {
+      setServerError(spaceData.error);
     } else {
-      console.log("data", data);
-      navigate("/spaces/" + data._id);
+      console.log("data", spaceData);
+      navigate("/spaces/");
     }
     setImage(null);
-    console.log(formData);
-    console.log("formdata", postObj);
+
+    // console.log("formdata", postObj);
   };
 
   const validate = () => {
