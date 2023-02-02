@@ -37,6 +37,7 @@ import ExploreViewSpace from "./components/views/ExploreViewSpaces";
 import SpacePostEditor from "./components/SpacePostEditor";
 import SpacePostView from "./components/views/SpacePostView";
 import CreatePollView from "./components/views/CreatePollView";
+import CreateSpacePostView from "./components/views/CreateSpacePostView";
 
 function App() {
   initiateSocketConnection();
@@ -50,7 +51,10 @@ function App() {
           <Route path="/community" element={<Community />} />
           <Route path="/posts/:id" element={<PostView />} />
           <Route path="/spaces/:id" element={<SpaceView />} />
-          <Route path="/spaces/posts/create/:id" element={<SpacePostView />} />
+          <Route
+            path="/spaces/posts/create/:id"
+            element={<CreateSpacePostView />}
+          />
           <Route
             path="/posts/create"
             element={
