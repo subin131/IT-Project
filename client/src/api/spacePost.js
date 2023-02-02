@@ -49,15 +49,17 @@ const getSpacePost = async (spacepostId, token) => {
   }
 };
 
-const createSpacePost = async (spacepost, user) => {
+const createSpacePost = async (spacepost, space) => {
   try {
-    let myHeaders = new Headers();
-    myHeaders.append("x-access-token", `${user.token}`);
-    let formdata = new FormData();
+    var myHeaders = new Headers();
+    myHeaders.append("x-access-token", `${space.token}`);
+
+    var formdata = new FormData();
+    formdata.append("image", spacepost.image);
     formdata.append("title", spacepost.title);
     formdata.append("content", spacepost.content);
-    formdata.append("image", spacepost.image);
-    let requestOptions = {
+
+    var requestOptions = {
       method: "POST",
       headers: myHeaders,
       body: formdata,

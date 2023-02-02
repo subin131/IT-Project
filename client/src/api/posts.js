@@ -30,6 +30,7 @@ const getPosts = async (token, query) => {
         },
       }
     );
+    // console.log("getPosts res: ", res);
     return await res.json();
   } catch (err) {
     console.log(err);
@@ -199,8 +200,6 @@ const unlikePost = async (postId, user) => {
 const addPost = async (post, user) => {
   try {
     var myHeaders = new Headers();
-    // myHeaders.append("Content-Type", "multipart/form-data");
-    // myHeaders.append("Accept", "application/json");
     myHeaders.append("x-access-token", `${user.token}`);
 
     var formdata = new FormData();
