@@ -8,6 +8,7 @@ const cooldown = new Set();
 
 const createSpacePost = async (req, res) => {
   try {
+    const url = req.protocol + "://" + req.get("host");
     const { title, content, userId, image } = req.body;
 
     if (!(title && content)) {
@@ -29,7 +30,7 @@ const createSpacePost = async (req, res) => {
       title,
       content,
       spacePoster: userId,
-      picturePath: url + "/uploads1/" + req.file.filename,
+      picturePath: url + "/uploads/" + req.file.filename,
     });
 
     res.json(spacePost);
@@ -117,33 +118,36 @@ const deleteSpacePost = async (req, res) => {
 const getSpacePosts = async (req, res) => {
   try {
     const { userId } = req.body;
+
     let { page, sortBy, author, search, liked } = req.query;
 
-    if (!sortBy) sortBy = "createdAt";
+    if (!sortBy) sortBy = "-createdAt";
     if (!page) page = 1;
 
-    let spacePost = await SpacePost.find({})
+    let spacePosts = await SpacePost.find()
       .populate("spacePoster", "-password")
+      .sort(sortBy)
       .lean();
 
     if (author) {
-      spacePost = spacePost.filter(
-        (post) => post.spacePoster._id.toString() === author
+      spacePosts = spacePosts.filter(
+        (spacePost) => spacePost.spacePoster.username == author
       );
     }
 
     if (search) {
-      spacePost = spacePost.filter((post) =>
-        post.title.toLowerCase().includes(search.toLowerCase())
+      spacePosts = spacePosts.filter((spacePost) =>
+        spacePost.title.toLowerCase().includes(search.toLowerCase())
       );
     }
-    const count = spacePost.length;
-    spacePost = paginate(spacePost, page, 10);
+    const count = spacePosts.length;
+    spacePosts = paginate(spacePosts, 10, page);
 
     if (userId) {
-      await setLiked(spacePost, userId);
+      await setLiked(spacePosts, userId);
     }
-    return res.json({ data: spacePost, count });
+
+    return res.json({ data: spacePosts, count });
   } catch (err) {
     return res.status(400).json({ error: err.message });
   }
