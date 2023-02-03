@@ -3,8 +3,16 @@ const router = express.Router();
 const spacePostControllers = require("../controllers/spacePostControllers");
 const { verifyToken, optionallyVerifyToken } = require("../middleware/auth");
 
+//importing the uploader middleware
+const uploader = require("../middleware/uploader");
+
 router.get("/", optionallyVerifyToken, spacePostControllers.getSpacePosts);
-router.post("/", verifyToken, spacePostControllers.createSpacePost);
+router.post(
+  "/",
+  uploader.single("image"),
+  verifyToken,
+  spacePostControllers.createSpacePost
+);
 router.get("/:id", optionallyVerifyToken, spacePostControllers.getSpacePost);
 router.patch("/:id", verifyToken, spacePostControllers.updateSpacePost);
 router.delete("/:id", verifyToken, spacePostControllers.deleteSpacePost);
