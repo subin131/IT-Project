@@ -47,7 +47,6 @@ UserSchema.pre("save", function (next) {
   if (this.biography.length > 0) {
     this.biography = filter.clean(this.biography);
   }
-
   next();
 });
 

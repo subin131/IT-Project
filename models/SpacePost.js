@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const filter = require("../util/filter");
-// const SpacePostLike = require("./PostLike");
+const SpacePostLike = require("./SpacePostLike");
 
 const SpacePostSchema = new mongoose.Schema(
   {
@@ -49,8 +49,8 @@ SpacePostSchema.pre("save", function (next) {
 });
 SpacePostSchema.pre("remove", async function (next) {
   console.log(this._id);
-  await PostLike.deleteMany({ postId: this._id });
+  await SpacePostLike.deleteMany({ spacePostId: this._id });
   next();
 });
 
-module.exports = mongoose.model("spacepost", SpacePostSchema);
+module.exports = mongoose.model("spaceposts", SpacePostSchema);
