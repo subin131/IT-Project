@@ -37,13 +37,10 @@ const SpacePostBrowse = (props) => {
       page: newPage,
     };
     let data;
-
     if (props.contentType === "spacePosts") {
       if (props.profileUser) query.author = props.profileUser.username;
-
       if (searchExists) query.search = search.get("search");
-      data = await getSpacePosts(user.token, query);
-      console.log("data", data);
+      data = await getSpacePosts(user && user.token, query);
     } else if (props.contentType === "liked") {
       data = await getUserLikedSpacePosts(
         props.profileUser._id,
@@ -51,6 +48,7 @@ const SpacePostBrowse = (props) => {
         query
       );
     }
+
     if (data.data.length < 10) {
       setEnd(true);
     }

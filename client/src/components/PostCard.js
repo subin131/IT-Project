@@ -18,7 +18,8 @@ import { MdCancel } from "react-icons/md";
 import { BiTrash } from "react-icons/bi";
 const PostCard = (props) => {
   const { preview, removePost } = props;
-  let postData = props.post;
+  const postData = props.post;
+
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const user = isLoggedIn();
@@ -126,6 +127,7 @@ const PostCard = (props) => {
                         size="small"
                         onClick={handleDeletePost}
                       >
+                        {" "}
                         {confirm ? (
                           <AiFillCheckCircle color={theme.palette.error.main} />
                         ) : (

@@ -1,27 +1,24 @@
 import { Container } from "@mui/material";
 import React from "react";
 import GoBack from "../GoBack";
-import GridLayout from "../GridLayout";
-import Navbar from "../Navbar";
-import PostEditor from "../PostEditor";
-import Sidebar from "../Sidebar";
-import { Button, Card, Link, Stack, Typography } from "@mui/material";
-import CreateSpace from "../CreateSpace";
-import HorizontalStack from "../util/HorizontalStack";
 
-const CreateSpaceView = () => {
+import Navbar from "../Navbar";
+import { Button, Card, Link, Stack, Typography } from "@mui/material";
+
+import HorizontalStack from "../util/HorizontalStack";
+import SpacePostEditor from "../SpacePostEditor";
+import GridLayout from "../GridLayout";
+
+const CreateSpacePostView = () => {
   return (
     <Container>
       <Navbar />
       <GoBack />
       <Card>
-        <HorizontalStack justifyContent="space-between">
-          {/* <CreateSpace /> */}
-          {/* <SortBySelect /> */}
-        </HorizontalStack>
+        <GridLayout left={<SpacePostEditor />} />
       </Card>
     </Container>
   );
 };
 
-export default CreateSpaceView;
+export default CreateSpacePostView;

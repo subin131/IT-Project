@@ -10,9 +10,8 @@ const users = require("./routes/users");
 const comments = require("./routes/comments");
 const spaces = require("./routes/spaces");
 const spacePosts = require("./routes/spacePost");
-const PostLike = require("./models/PostLike");
-const Post = require("./models/Post");
 const polls = require("./routes/polls");
+const pollCount = require("./routes/pollCount");
 
 dotenv.config();
 
@@ -48,6 +47,7 @@ app.use("/api/comments", comments);
 app.use("/api/spaces", spaces);
 app.use("/api/spaceposts", spacePosts);
 app.use("/api/polls", polls);
+app.use("/api/pollCount", pollCount);
 
 if (process.env.NODE_ENV == "production") {
   app.use(express.static(path.join(__dirname, "/client/build")));
